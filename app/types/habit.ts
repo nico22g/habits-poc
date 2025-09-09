@@ -1,7 +1,8 @@
 export interface Habit {
   id: string;
   name: string;
-  createdAt: Date;
+  createdAt: string;
   isCompleted: boolean;
   completedAt?: Date;
+  description: string;
 }

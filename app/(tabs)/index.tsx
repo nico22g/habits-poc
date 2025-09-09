@@ -1,24 +1,24 @@
 import { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSelector } from 'react-redux';
+import { HabitList } from '../components/habit-list';
 import { fetchHabits } from '../store/habits/actions';
 import { useAppDispatch } from '../store/habits/hooks';
 
 export default function HomeScreen() {
 
   const habits = useSelector((state: any) => state.habits.habits);
+  const insets = useSafeAreaInsets();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchHabits());
   }, []);
-
-  useEffect(() => {
-    console.log('Habits from Redux Store:', habits);
-  }, [habits]);
+  
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home</Text>
+    <View style={{ flex: 1, paddingTop: insets.top, alignItems: 'center', justifyContent: 'center' }}>
+      <HabitList habits={habits} />
     </View>
   );
 }
