@@ -1,20 +1,21 @@
 import { useEffect } from 'react';
 import { Text, View } from 'react-native';
-import { getHabits } from '../services/habits/HabitService';
+import { useSelector } from 'react-redux';
+import { fetchHabits } from '../store/habits/actions';
+import { useAppDispatch } from '../store/habits/hooks';
 
 export default function HomeScreen() {
+
+  const habits = useSelector((state: any) => state.habits.habits);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-  
-    const fetchHabits = async () => {
-      try {
-        const response = await getHabits();
-        console.log('Habits:', response);
-      } catch (error) {
-        console.error('Error fetching habits:', error);
-      }
-    };
-    fetchHabits();
+    dispatch(fetchHabits());
   }, []);
+
+  useEffect(() => {
+    console.log('Habits from Redux Store:', habits);
+  }, [habits]);
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home</Text>
