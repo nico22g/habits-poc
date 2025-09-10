@@ -1,10 +1,12 @@
-import { Habit } from '@/app/types/habit';
+import { Habit, HabitGraphData } from '@/app/types/habit';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchHabits } from '../actions';
+import { convertHabitsToGraphData, fetchHabits } from '../actions';
+
 
 
 interface HabitsState {
   habits: Habit[];
+  habitGraphData: HabitGraphData;
 }
 interface HabitState extends HabitsState {
   error: string | null;
@@ -13,6 +15,14 @@ interface HabitState extends HabitsState {
 const initialState: HabitState = {
   habits: [],
   error: null,
+  habitGraphData: {
+    labels: ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+    datasets: [
+        {
+            data: [0, 0, 0, 0, 0, 0, 0]
+        }
+    ]
+},
 }
 
 const habits = createSlice({
@@ -32,6 +42,22 @@ const habits = createSlice({
       }
     ).addCase(
       fetchHabits.pending,
+      (state) => {
+        state.error = null  // Reset error on pending;
+      }
+    );
+    builder.addCase(
+      convertHabitsToGraphData.fulfilled,
+      (state, action) => {
+        state.habitGraphData = action.payload.payload;
+      }
+    ).addCase(
+      convertHabitsToGraphData.rejected,
+      (state, action) => {
+        state.error = action.error.message || 'Failed to fetch habits';
+      }
+    ).addCase(
+      convertHabitsToGraphData.pending,
       (state) => {
         state.error = null  // Reset error on pending;
       }

@@ -6,3 +6,8 @@ export interface Habit {
   completedAt?: Date;
   description: string;
 }
+
+export interface HabitGraphData {
+  labels: string[];
+  datasets: { data: number[] }[];
+}
