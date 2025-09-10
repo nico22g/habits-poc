@@ -2,13 +2,12 @@
 import { Habit } from '@/app/types/habit';
 import { useCallback } from 'react';
 import { FlatList, Text, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import HabitsListItem from './habit-list-item';
 
 interface Props {
   habits: Habit[];
 }
-
-const renderSeparator = () => <View style={{ height: 10 }} />;
 
 const renderHeader = () => (
   <View>
@@ -26,15 +25,14 @@ export const HabitList = ({habits} : Props) =>{
   
   const keyExtractor = (item: Habit) => item.id;
   return (
-    <View style={{ flex: 1, width: '100%' }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <FlatList
         data={habits}
         keyExtractor={keyExtractor}
         renderItem={renderItem}
         contentContainerStyle={{ padding: 20 }}
-        ItemSeparatorComponent={renderSeparator}
         ListHeaderComponent={renderHeader}
       />
-    </View>
+    </GestureHandlerRootView>
   );
 }

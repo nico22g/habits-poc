@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
   },
   content: {
     flex: 1,
@@ -28,7 +33,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#6366f1',
+    color: '#e26a00',
     textTransform: 'uppercase',
     backgroundColor: '#eef2ff',
     paddingHorizontal: 8,
@@ -39,6 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#9ca3af',
     fontWeight: '500',
+    width: '40%'
   },
   title: {
     fontSize: 16,
@@ -53,6 +59,15 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     marginBottom: 12,
   },
+  container: {
+    height: 120, // Or whatever the fixed height of your list item is
+    width: '100%',
+    position: 'relative',
+    marginBottom: 10,
+  },
+  backItem: {
+    backgroundColor: '#f0f4f8',
+  }
 });
 
 export default styles;
