@@ -5,6 +5,7 @@ export interface Habit {
   isCompleted: boolean;
   completedAt?: Date;
   description: string;
+  category: string;
 }
 
 export interface HabitGraphData {

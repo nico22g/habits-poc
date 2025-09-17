@@ -8,7 +8,9 @@ import { RootState } from '../..';
 
 export const fetchHabits = createAsyncThunk('/habits/fetchHabits', async () => {
   let response;
-  const habitsAsync = await AsyncStorage.getItem('habits');  
+  const habitsAsync = await AsyncStorage.getItem('habits');
+  console.log('first one');
+  
   if (habitsAsync === null || habitsAsync.length === 0) {
     // Fetch from Habits Service if we don't have async data in AsyncStorage
     response = await getHabits();
@@ -67,3 +69,23 @@ export const convertHabitsToGraphData = createAsyncThunk('/habits/convertHabitsT
   }
   return { payload: response};
 })
+
+
+export const getCategoriesFromHabits = createAsyncThunk('/habits/categories', async (_, thunkAPI) => {
+  let categories: string[];
+  const state = thunkAPI.getState() as RootState;
+  const habits = state.habits.habits;
+  console.log('habits from toolkit: ',habits);
+  console.log('second one');
+  if (habits.length > 0) {
+    categories = habits.map((habit: Habit) => (habit.category));
+  } else {
+    categories = [];
+  }
+  
+  return { payload: categories };
+});
+
+export const setFilterByCategory = createAsyncThunk('/habits/categories/filter', async (action, thunkAPI) => {
+  return { payload: action};
+});
